@@ -3,8 +3,6 @@ import openai
 import requests
 from bs4 import BeautifulSoup
 chat_line ="You are a fake news detector. Please evaluate the following news article, and clearly and separately state sources. please keep it in a formated way with if its true or not first. then check for an apperant biases and try to give a percentage of bias"
-        
-import openai
 
 def get_response(prompt):
     # Set your OpenAI API key here
