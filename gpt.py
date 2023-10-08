@@ -33,19 +33,9 @@ def get_response(prompt):
     # Extract the assistant's response
     response_messages = response['choices'][0]['message']['content']
 
-    # Split the response by '%' symbol
-    response_parts = response_messages.split('%')
+   
 
-    # If there are parts after splitting, there is a '%' symbol
-    if len(response_parts) > 1:
-        main_message = response_parts[0]
-        percentage_message = '%' + response_parts[1]
-    else:
-        # No '%' symbol found
-        main_message = response_messages
-        percentage_message = None
-
-    return main_message, percentage_message
+    return response_messages
 
 
 
@@ -77,18 +67,7 @@ def linkget_response(prompt):
     )
     response_messages = response['choices'][0]['message']['content']
 
-    response_parts = response_messages.split('%')
-
-    # If there are parts after splitting, there is a '%' symbol
-    if len(response_parts) > 1:
-        main_message = response_parts[0]
-        percentage_message = '%' + response_parts[1]
-    else:
-        # No '%' symbol found
-        main_message = response_messages
-        percentage_message = None
-
-    return main_message, percentage_message
+    return response_messages
 
 
 
