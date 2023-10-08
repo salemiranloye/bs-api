@@ -1,31 +1,26 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from gpt import linkget_response, get_response
 from validURL import is_valid_url, is_valid_link
+from flask_cors import CORS
+user_input = "In 2016, a story circulated that Pope Francis made an unprecedented and shocking endorsement of Donald Trump for president."
+
 app = Flask(__name__)
-prompt = "https://www.reuters.com/legal/trump-loses-key-ruling-ahead-writer-carrolls-defamation-trial-2023-09-06/"
+CORS(app)
 
+@app.route('/',methods=['GET', 'POST'])
+def process_input():
+    #data = request.get_json()
+   # user_input = data.get('text', '')
 
-
-
-# Example usage:
-
-
-
-@app.route('/')
-def index():
-    if is_valid_link(prompt):
-        print("The input appears to be a valid link.")
-        if is_valid_url(prompt):
-            print("The URL is valid.")
-            response, percent = linkget_response(prompt)
-            return response, percent
+    if is_valid_link(user_input):
+        if is_valid_url(user_input):
+            response, percent = linkget_response(user_input)
+            return jsonify({'response': response, 'percent': percent})
         else:
-            return "The URL is not valid or could not be reached."
+            return jsonify({'error': 'The URL is not valid or could not be reached.'}), 400
     else:
-        response, percent = get_response(prompt)
-        return response, percent
-        
-    
+        response, percent = get_response(user_input)
+        return jsonify({'response': response, 'percent': percent})
 
 @app.route('/hello')
 def hello():
