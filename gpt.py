@@ -1,5 +1,6 @@
 import os
 import openai
+from dotenv import load_dotenv
 import requests
 from bs4 import BeautifulSoup
 chat_line ="You are a fake news detector. Please evaluate the following news article, and clearly and separately state sources. please keep it in a formated way with if its true or not first. then check for an apperant biases and try to give a percentage of bias"
@@ -8,7 +9,7 @@ chat_line ="You are a fake news detector. Please evaluate the following news art
 
 def get_response(prompt):
     # Set your OpenAI API key here
-    openai.api_key = open('API', 'r').read()
+    openai.api_key = os.getenv("openAI")
     
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
